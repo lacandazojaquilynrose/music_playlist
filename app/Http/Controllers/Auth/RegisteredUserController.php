@@ -15,7 +15,9 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-
+    /**
+     * Display the registration view.
+     */
     public function create(): View
     {
         return view('auth.register');
@@ -26,7 +28,7 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
-public function store(Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -42,6 +44,8 @@ public function store(Request $request): RedirectResponse
 
         event(new Registered($user));
 
-        return redirect('/login')->with('status', 'Registration successful! Please login.');
+        Auth::login($user);
+
+        return redirect(route('dashboard', absolute: false));
     }
 }
