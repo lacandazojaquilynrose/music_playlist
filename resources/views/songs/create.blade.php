@@ -1,41 +1,48 @@
 <x-app-layout>
     <div class="container mt-5" style="padding: 40px; max-width: 600px; margin: 0 auto;">
+        
+        <h1 style="color: #ff69b4; margin-bottom: 25px; font-weight: bold; text-align: center;">Add New Song</h1>
+
+        @if ($errors->any())
+        <div class="alert alert-danger mb-4" style="background-color: #dc3545; color: white; border: 1px solid #ff69b4; border-radius: 8px; padding: 15px;">
+            <ul style="margin: 0; padding-left: 20px;">
+                @foreach ($errors->all() as $error)
+                    <li> {{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <div class="card p-4" style="background-color: #1e1e1e; color: white; border: 1px solid #ff69b4; border-radius: 10px; padding: 30px;">
-            <h3 style="color: #ff69b4; margin-bottom: 25px; font-weight: bold;">Add New Song</h3>
-            
             <form action="{{ route('songs.store') }}" method="POST">
                 @csrf
-                
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; color: white; font-weight: 600;">Song Title</label>
-                    <input type="text" name="title" style="width: 100%; padding: 12px; background-color: #121212; color: white; border: 1px solid #ff69b4; border-radius: 6px;" placeholder="e.g., Mean" required>
+
+                <div class="mb-4" style="margin-bottom: 20px;">
+                    <label for="title" style="color: white; display: block; margin-bottom: 8px; font-weight: bold;">Song Title</label>
+                    <input type="text" id="title" name="title" value="{{ old('title') }}" required 
+                           style="width: 100%; padding: 12px; background-color: #111; border: 1px solid #ff69b4; border-radius: 5px; color: white; box-sizing: border-box;">
                 </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; color: white; font-weight: 600;">Artist</label>
-                    <input type="text" name="artist" style="width: 100%; padding: 12px; background-color: #121212; color: white; border: 1px solid #ff69b4; border-radius: 6px;" placeholder="e.g., Taylor Swift" required>
+
+                <div class="mb-4" style="margin-bottom: 20px;">
+                    <label for="artist" style="color: white; display: block; margin-bottom: 8px; font-weight: bold;">Artist Name</label>
+                    <input type="text" id="artist" name="artist" value="{{ old('artist') }}" required 
+                           style="width: 100%; padding: 12px; background-color: #111; border: 1px solid #ff69b4; border-radius: 5px; color: white; box-sizing: border-box;">
                 </div>
-                
-                <div style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 8px; color: white; font-weight: 600;">Genre</label>
-                    <input type="text" name="genre" style="width: 100%; padding: 12px; background-color: #121212; color: white; border: 1px solid #ff69b4; border-radius: 6px;" placeholder="e.g., Country" required>
+
+                <div class="mb-4" style="margin-bottom: 25px;">
+                    <label for="genre" style="color: white; display: block; margin-bottom: 8px; font-weight: bold;">Genre</label>
+                    <input type="text" id="genre" name="genre" value="{{ old('genre') }}" required 
+                           style="width: 100%; padding: 12px; background-color: #111; border: 1px solid #ff69b4; border-radius: 5px; color: white; box-sizing: border-box;">
                 </div>
-                
-                <button type="submit" style="width: 100%; background-color: #ff69b4; color: black; padding: 12px; border: none; border-radius: 6px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05rem; cursor: pointer;" class="hover-glow">Save Song</button>
-                
-                <a href="{{ route('songs.index') }}" style="display: block; text-align: center; margin-top: 15px; color: #b3b3b3; text-decoration: none; font-size: 0.9rem;" class="hover-underline">Cancel</a>
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <a href="{{ route('songs.index') }}" style="color: #ff69b4; text-decoration: none; font-weight: bold;">Cancel</a>
+                    <button type="submit" class="btn" style="background-color: #ff69b4; color: black; padding: 12px 25px; border: none; border-radius: 5px; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; cursor: pointer;">
+                         Save Song
+                    </button>
+                </div>
+
             </form>
         </div>
     </div>
-
-    <style>
-        .hover-glow:hover {
-            opacity: 0.9;
-            box-shadow: 0 0 12px rgba(255, 105, 180, 0.4);
-        }
-        .hover-underline:hover {
-            text-decoration: underline !important;
-            color: white !important;
-        }
-    </style>
 </x-app-layout>
